@@ -1,8 +1,11 @@
 <?php
+
+include "Token.php";
+
 $teste = file_get_contents("./teste.json", "teste.json");
 $teste = json_decode($teste, true);
 $estado = "INICIO";
-$cadeia = "if(3 == 2) &{
+$cadeia = "if(3 == 2) {
     print(23)
 }";
 $match = false;
@@ -12,10 +15,10 @@ $posicao = 0;
 $posInicial = 0;
 $posFinal = 0;
 $linha = 0;
+$arrayTokens;
 foreach ($cadeiaSplit as $lexema) {
     $posicao++; //contador da posicao do caractere
 
-    echo "token " . $tokens;
 
     if ($lexema == "\n") { //contador de linhas
         $linha++;
@@ -44,7 +47,7 @@ foreach ($cadeiaSplit as $lexema) {
             }
             $match == false;
             $posFinal = $posicao - 1;
-            matchFinal($tokens, $estado, $linha, $posInicial, $posFinal);
+            $arrayTokens[] = matchFinal($tokens, $estado, $linha, $posInicial, $posFinal);
             $tokens = "";
             $estado = "INICIO";
             echo "mudado pra inicio <br />";
@@ -55,17 +58,21 @@ foreach ($cadeiaSplit as $lexema) {
 }
 
 
-function matchFinal($tokens, $estado, $linha, $posInicial, $posFinal)
-{
+function matchFinal($tokens, $estado, $linha, $posInicial, $posFinal) {
     if (preg_match("[FINAL]", $estado)) {
+        $objetoToken = new Token(str_replace("FINAL", "", $estado), $tokens, $linha, $posInicial, $posFinal);
+
         echo "----------------------------- <br />";
-        echo "TOKEN: " . str_replace("FINAL", "", $estado) . "<br />";
+        echo "TOKEN: " . $objetoToken->getToken() . "<br />";
         echo "LEXEMA: " . $tokens . "<br />";
         echo "LINHA: " . $linha . "<br />";
         echo "POSICAO INICIAL: " . $posInicial . "<br />";
         echo "POSICAO FINAL: " . $posFinal . "<br />";
         echo "----------------------------- <br />";
+
+        return $objetoToken;
     }
 }
 
-//FAZER OS OPERADORES NO JSON
+//pra cada produção vai ser uma função
+//ex:

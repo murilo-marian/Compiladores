@@ -1,55 +1,83 @@
 <?php
 
-class Sintatico {
 
-    private $cont = 0;
-    private $lexico;
+class SLR {
+    private $afd;
 
-    public function __construct($listaTokens) {
-        $this->lexico = $listaTokens;
+    //ADICIONAR PONTO E VIRGULA NO LEXICO
+
+    public function __construct() {
+        $teste = file_get_contents("./transicoesSintatico.json", "transicoesSintatico.json");
+
+        $this->afd = $teste = json_decode($teste, true);
     }
 
-    /*  { "/[s]/": "SWITCH" },
-        { "/[w]/": "WHILE" },
-        { "/[d]/": "DO" },
-        { "/[p]/": "PRINT" },
-        { "/[i]/": "IF" },*/
+    /***
+     * Entrada deve ser a lista de tokens gerada pelo analisador léxico
+     */
+    public function parser($entrada) {
 
-    function term($tk) {
-        //comparar o esperado {parametro tk} com o próximo token da entrada
-        return $tk == $this->lexico[$this->cont++]->getToken();
-    }
+        $pilha = array();
+        array_push($pilha, 0);
+        echo "\nPilha:" . implode(' ', $pilha);
+        echo '<br/>';
+        echo '<br/>';
+        $i = 0;
+        $ERRO = 0;
+        $ENTRADAERRO = $entrada[0];
+        while ($entrada) {
+            if (array_key_exists($entrada[$i], $this->afd[end($pilha)]["ACTION"])) {
+                echo "tem1";
+                $move = $this->afd[end($pilha)]['ACTION'][$entrada[$i]];
+            } else if (array_key_exists("", $this->afd[end($pilha)]["ACTION"])) {
+                echo "tem2";
+                $move = $this->afd[end($pilha)]['ACTION'][""];
+            } else {
+                echo "false";
+                return false;
+            }
 
-    function PROGRAMA() {
-        return $this->LISTA_COMANDOS();
-    }
-
-    function LISTA_COMANDOS() {
-        return $this->COMANDO() && $this->LISTA_COMANDOS() || $this->LISTA_COMANDOS2();
-    }
-
-    function LISTA_COMANDOS2() {
-        return true;
-    }
-
-    function COMANDO() {
-        return $this->IF() || $this->WHILE() || $this->FOR() || $this->FOREACH() || $this->SWITCH() || $this->DO() || $this->PRINT();
-    }
-
-
-    public function LISTA_VAR() {
-        return $this->LISTA_VAR1() || $this->LISTA_VAR2();
-    }
-
-    public function LISTA_VAR1() {
-        return $this->VAR() && $this->term('virgula') && $this->LISTA_VAR();
-    }
-
-    public function LISTA_VAR2() {
-        return true; //vazio sempre true
-    }
-
-    public function VAR() {
-        return $this->TIPO() && $this->term('id');
+            $acao = explode(' ', $move);
+            echo " | Ação:" . $move;
+            echo '<br/>';
+            switch ($acao[0]) {
+                case 'S': // Shift - Empilha e avança o ponteiro
+                    array_push($pilha, $acao[1]);
+                    $i++;
+                    break;
+                case 'R': // Reduce - Desempilha e Desvia (para indicar a redução)  
+                    for ($j = 0; $j < $acao[1]; $j++) {
+                        array_pop($pilha);
+                        echo '<br/>';
+                    }
+                    echo '<br/>';
+                    echo ' | Reduziu para ' . $acao[2];
+                    echo '<br/>';
+                    if (array_key_exists($entrada[$i], $this->afd[end($pilha)]['GOTO'][$acao[2]])) {
+                        $desvio = $this->afd[end($pilha)]['GOTO'][$acao[2]][$entrada[$i]];
+                    } else if (array_key_exists("", $this->afd[end($pilha)]['GOTO'][$acao[2]])) {
+                        $desvio = $this->afd[end($pilha)]['GOTO'][$acao[2]][""];
+                    }
+                    array_push($pilha, $desvio);
+                    break;
+                case 'ACC': // Accept
+                    echo 'Ok';
+                    return true;
+                default:
+                    echo 'Erro';
+                    return false;
+            }
+            echo "\nPilha:" . implode(' ', $pilha);
+            echo '<br/>';
+            echo '<br/>';
+        }
     }
 }
+
+// Testando
+$slr = new SLR();
+$entrada = array('IF', 'ABREPARENTESES', 'ID', 'SOMA', 'CONST', 'MAIOR', 'CONST', 'FECHAPARENTESES', 'ABRECHAVES', "WHILE", 'ABREPARENTESES', 'ID', 'MENOR', 'ID', 'FECHAPARENTESES', 'ABRECHAVES', 'FECHACHAVES', 'FECHACHAVES', '$'); // considerar que cada item é um token gerado pelo analisador léxico
+if ($slr->parser($entrada))
+    echo "\nLinguagem aceita";
+else
+    echo "\nErro ao processar entrada";

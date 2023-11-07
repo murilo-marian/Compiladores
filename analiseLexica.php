@@ -16,6 +16,10 @@ $posInicial = 0;
 $posFinal = 0;
 $linha = 0;
 $arrayTokens;
+
+echo '<pre>';
+print_r($teste);
+echo '</pre>';
 foreach ($cadeiaSplit as $lexema) {
     $posicao++; //contador da posicao do caractere
 
@@ -28,6 +32,10 @@ foreach ($cadeiaSplit as $lexema) {
         if ($estado == "INICIO") {
             $posInicial = $posicao;
         }
+
+        echo '<pre>';
+        print_r($teste);
+        echo '</pre>';
         foreach ($teste[$estado] as $padrao) {
             if (preg_match(key($padrao), $lexema)) {
                 $tokens .= $lexema;

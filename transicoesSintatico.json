@@ -1,0 +1,166 @@
+{
+    "0": {
+        "ACTION": { "WHILE": "S 3", "IF": "S 2", "FOR": "44" },
+        "GOTO": {
+            "PROGRAMA": { "$": 1 },
+            "IF": { "": 36 },
+            "WHILE": { "": 41 },
+            "COMANDO": { "IF": 2, "WHILE": 3, "": 35 },
+            "LISTACOMANDOS": { "": 39 }
+        }
+    },
+    "1": { "ACTION": { "": "ACC" }, "GOTO": {} },
+    "2": {
+        "ACTION": { "ABREPARENTESES": "S 4" },
+        "GOTO": { "CONDICAOBLOCO": { "": 38 } }
+    },
+    "3": {
+        "ACTION": { "ABREPARENTESES": "S 4" },
+        "GOTO": { "CONDICAOBLOCO": { "": 40 } }
+    },
+    "4": {
+        "ACTION": { "CONST": "S 11", "ID": "S 12" },
+        "GOTO": {
+            "EXP2": { "": 13 },
+            "EXP": {
+                "SOMA": 6,
+                "SUBTRACAO": 6,
+                "MULTIPLICACAO": 6,
+                "DIVISAO": 6,
+                "MODULO": 6,
+                "ELEVADO": 6,
+                "MENOR": 5,
+                "MAIOR": 5,
+                "DIFERENTE": 5,
+                "MENORIGUAL": 5,
+                "MAIORIGUAL": 5,
+                "IGUAL": 5,
+                "FECHAPARENTESES": 8
+            },
+            "CONDICAO": { "FECHAPARENTESES": 30 }
+        }
+    },
+    "5": {
+        "ACTION": {
+            "MENOR": "S 21",
+            "MAIOR": "S 20",
+            "DIFERENTE": "S 25",
+            "MENORIGUAL": "S 22",
+            "MAIORIGUAL": "S 23",
+            "IGUAL": "S 24"
+        },
+        "GOTO": { "COMPARA": { "ID": 9, "CONST": 9 } }
+    },
+    "6": {
+        "ACTION": {
+            "SOMA": "S 14",
+            "SUBTRACAO": "S 15",
+            "MULTIPLICACAO": "S 16",
+            "DIVISAO": "S 17",
+            "MODULO": "S 18",
+            "ELEVADO": "S 19"
+        },
+        "GOTO": { "COMPARA": { "ID": 7, "CONST": 7 }, "OPERA": { "": 7 } }
+    },
+    "7": {
+        "ACTION": { "CONST": "S 11", "ID": "S 12" },
+        "GOTO": {
+            "EXP2": { "": 13 },
+            "EXP": {
+                "SOMA": 6,
+                "SUBTRACAO": 6,
+                "MULTIPLICACAO": 6,
+                "DIVISAO": 6,
+                "MODULO": 6,
+                "ELEVADO": 6,
+                "MENOR": 8,
+                "MAIOR": 8,
+                "DIFERENTE": 8,
+                "MENORIGUAL": 8,
+                "MAIORIGUAL": 8,
+                "IGUAL": 8,
+                "FECHAPARENTESES": 10
+            }
+        }
+    },
+    "8": {
+        "ACTION": { "": "R 3 EXP" },
+        "GOTO": {}
+    },
+    "9": {
+        "ACTION": { "ID": "S 12", "CONST": "S 11" },
+        "GOTO": {
+            "EXP2": { "": 13 },
+            "EXP": {
+                "SOMA": 6,
+                "SUBTRACAO": 6,
+                "MULTIPLICACAO": 6,
+                "DIVISAO": 6,
+                "MODULO": 6,
+                "ELEVADO": 6,
+                "FECHAPARENTESES": 10
+            }
+        }
+    },
+    "10": { "ACTION": { "": "R 3 CONDICAO" }, "GOTO": {} },
+    "11": { "ACTION": { "": "R 1 EXP2" }, "GOTO": {} },
+    "12": { "ACTION": { "": "R 1 EXP2" }, "GOTO": {} },
+    "13": { "ACTION": { "": "R 1 EXP" }, "GOTO": {} },
+    "14": { "ACTION": { "": "R 1 OPERA" }, "GOTO": {} },
+    "15": { "ACTION": { "": "R 1 OPERA" }, "GOTO": {} },
+    "16": { "ACTION": { "": "R 1 OPERA" }, "GOTO": {} },
+    "17": { "ACTION": { "": "R 1 OPERA" }, "GOTO": {} },
+    "18": { "ACTION": { "": "R 1 OPERA" }, "GOTO": {} },
+    "19": { "ACTION": { "": "R 1 OPERA" }, "GOTO": {} },
+    "20": { "ACTION": { "": "R 1 COMPARA" }, "GOTO": {} },
+    "21": { "ACTION": { "": "R 1 COMPARA" }, "GOTO": {} },
+    "22": { "ACTION": { "": "R 1 COMPARA" }, "GOTO": {} },
+    "23": { "ACTION": { "": "R 1 COMPARA" }, "GOTO": {} },
+    "24": { "ACTION": { "": "R 1 COMPARA" }, "GOTO": {} },
+    "25": { "ACTION": { "": "R 1 COMPARA" }, "GOTO": {} },
+    "26": { "ACTION": { "": "R 1 INCREMENTO" }, "GOTO": {} },
+    "27": { "ACTION": { "": "R 1 INCREMENTO" }, "GOTO": {} },
+    "28": { "ACTION": {}, "GOTO": {} },
+    "29": { "ACTION": {}, "GOTO": {} },
+    "30": { "ACTION": { "FECHAPARENTESES": "S 31" }, "GOTO": {} },
+    "31": {
+        "ACTION": { "ABRECHAVES": "S 32" },
+        "GOTO": { "BLOCO": { "": 37 } }
+    },
+    "32": {
+        "ACTION": {
+            "WHILE": "S 3",
+            "IF": "S 2",
+            "FECHACHAVES": "R 0 LISTACOMANDOS"
+        },
+        "GOTO": {
+            "PROGRAMA": { "$": 1 },
+            "IF": { "": 36 },
+            "WHILE": { "": 41 },
+            "COMANDO": { "FECHACHAVES": 35, "": 42 },
+            "LISTACOMANDOS": { "": 33 }
+        }
+    },
+    "33": { "ACTION": { "FECHACHAVES": "S 34" } },
+    "34": { "ACTION": { "": "R 3 BLOCO" }, "GOTO": {} },
+    "35": { "ACTION": { "": "R 1 LISTACOMANDOS" }, "GOTO": {} },
+    "36": { "ACTION": { "": "R 1 COMANDO" }, "GOTO": {} },
+    "37": { "ACTION": { "": "R 4 CONDICAOBLOCO" }, "GOTO": {} },
+    "38": { "ACTION": { "": "R 2 IF" }, "GOTO": {} },
+    "39": { "ACTION": { "": "R 1 PROGRAMA" }, "GOTO": {} },
+    "40": { "ACTION": { "": "R 2 WHILE" }, "GOTO": {} },
+    "41": { "ACTION": { "": "R 1 COMANDO" }, "GOTO": {} },
+    "42": {
+        "ACTION": { "IF": "S 2", "WHILE": "S 3" },
+        "GOTO": {
+            "IF": { "": 36 },
+            "COMANDO": { "": 42 },
+            "LISTACOMANDOS": { "": 43 },
+            "WHILE": { "": 41 }
+        }
+    },
+    "43": { "ACTION": { "": "R 2 LISTACOMANDOS" }, "GOTO": {} },
+    "44": { "ACTION": { "ABREPARENTESES": "S 45" }, "GOTO": {} },
+    "45": { "ACTION": { "ID": "S 46" }, "GOTO": {} },
+    "46": { "ACTION": { "ATRIBUI": "S 47" }, "GOTO": {} }
+}

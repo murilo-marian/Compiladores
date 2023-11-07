@@ -26,20 +26,29 @@ class SLR {
         $ERRO = 0;
         $ENTRADAERRO = $entrada[0];
         while ($entrada) {
+            if ($ENTRADAERRO == $entrada[$i]) {
+                $ERRO++;
+            } else {
+                $ENTRADAERRO = $entrada[$i];
+                $ERRO = 0;
+            }
+
+            if ($ERRO > 15) {
+                break;
+            }
+
             if (array_key_exists($entrada[$i], $this->afd[end($pilha)]["ACTION"])) {
-                echo "tem1";
                 $move = $this->afd[end($pilha)]['ACTION'][$entrada[$i]];
             } else if (array_key_exists("", $this->afd[end($pilha)]["ACTION"])) {
-                echo "tem2";
                 $move = $this->afd[end($pilha)]['ACTION'][""];
             } else {
-                echo "false";
                 return false;
             }
 
             $acao = explode(' ', $move);
             echo " | Ação:" . $move;
             echo '<br/>';
+            print_r($acao);
             switch ($acao[0]) {
                 case 'S': // Shift - Empilha e avança o ponteiro
                     array_push($pilha, $acao[1]);
@@ -48,8 +57,8 @@ class SLR {
                 case 'R': // Reduce - Desempilha e Desvia (para indicar a redução)  
                     for ($j = 0; $j < $acao[1]; $j++) {
                         array_pop($pilha);
-                        echo '<br/>';
                     }
+                    echo '<br/>';
                     echo '<br/>';
                     echo ' | Reduziu para ' . $acao[2];
                     echo '<br/>';
@@ -76,7 +85,7 @@ class SLR {
 
 // Testando
 $slr = new SLR();
-$entrada = array('IF', 'ABREPARENTESES', 'ID', 'SOMA', 'CONST', 'MAIOR', 'CONST', 'FECHAPARENTESES', 'ABRECHAVES', "WHILE", 'ABREPARENTESES', 'ID', 'MENOR', 'ID', 'FECHAPARENTESES', 'ABRECHAVES', 'FECHACHAVES', 'FECHACHAVES', '$'); // considerar que cada item é um token gerado pelo analisador léxico
+$entrada = array('FOR', 'ABREPARENTESES', 'ID', 'ATRIBUI', 'ID', 'PONTOVIRGULA', 'ID', 'MAIOR', 'CONST', 'PONTOVIRGULA', "ID", 'AUMENTAUM', 'FECHAPARENTESES', 'ABRECHAVES', 'FECHACHAVES', '$'); // considerar que cada item é um token gerado pelo analisador léxico
 if ($slr->parser($entrada))
     echo "\nLinguagem aceita";
 else

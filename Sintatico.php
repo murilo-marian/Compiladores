@@ -9,7 +9,7 @@ class SLR {
     public function __construct() {
         $teste = file_get_contents("./transicoesSintatico.json", "transicoesSintatico.json");
 
-        $this->afd = $teste = json_decode($teste, true);
+        $this->afd = json_decode($teste, true);
     }
 
     /***
@@ -17,14 +17,22 @@ class SLR {
      */
     public function parser($entrada) {
 
+        $entrada[] = '$';
+        print_r($entrada);
+
         $pilha = array();
         array_push($pilha, 0);
+        echo '<br/>';
+        echo '<br/>';
+        echo '<br/>';
+        echo '<br/>';
         echo "\nPilha:" . implode(' ', $pilha);
         echo '<br/>';
         echo '<br/>';
         $i = 0;
         $ERRO = 0;
         $ENTRADAERRO = $entrada[0];
+        print_r($entrada);
         while ($entrada) {
             if ($ENTRADAERRO == $entrada[$i]) {
                 $ERRO++;
@@ -36,6 +44,7 @@ class SLR {
             if ($ERRO > 15) {
                 break;
             }
+
 
             if (array_key_exists($entrada[$i], $this->afd[end($pilha)]["ACTION"])) {
                 $move = $this->afd[end($pilha)]['ACTION'][$entrada[$i]];
@@ -82,11 +91,3 @@ class SLR {
         }
     }
 }
-
-// Testando
-$slr = new SLR();
-$entrada = array('FOR', 'ABREPARENTESES', 'ID', 'ATRIBUI', 'ID', 'PONTOVIRGULA', 'ID', 'MAIOR', 'CONST', 'PONTOVIRGULA', "ID", 'AUMENTAUM', 'FECHAPARENTESES', 'ABRECHAVES', 'FECHACHAVES', '$'); // considerar que cada item é um token gerado pelo analisador léxico
-if ($slr->parser($entrada))
-    echo "\nLinguagem aceita";
-else
-    echo "\nErro ao processar entrada";

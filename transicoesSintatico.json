@@ -1,13 +1,36 @@
 {
     "0": {
-        "ACTION": { "WHILE": "S 3", "IF": "S 2", "FOR": "S 44" },
+        "ACTION": {
+            "WHILE": "S 3",
+            "IF": "S 2",
+            "FOR": "S 44",
+            "DO": "S 58",
+            "PRINT": "S 65",
+            "FOREACH": "S 70",
+            "SWITCH": "S 78",
+            "ID": "S 46"
+        },
         "GOTO": {
             "PROGRAMA": { "$": 1 },
             "IF": { "": 36 },
             "FOR": { "": 57 },
             "WHILE": { "": 41 },
-            "COMANDO": { "IF": 2, "WHILE": 3, "": 35 },
-            "LISTACOMANDOS": { "": 39 }
+            "COMANDO": {
+                "IF": 42,
+                "WHILE": 42,
+                "DO": 42,
+                "PRINT": "42",
+                "FOREACH": "42",
+                "SWITCH": "42",
+                "FOR": "42",
+                "": 35
+            },
+            "LISTACOMANDOS": { "": 39 },
+            "DO": { "": 64 },
+            "PRINT": { "": 69 },
+            "FOREACH": { "": 77 },
+            "SWITCH": { "": 95 },
+            "ATRIBUICAO": { "": 96 }
         }
     },
     "1": { "ACTION": { "": "ACC" }, "GOTO": {} },
@@ -36,7 +59,7 @@
                 "MENORIGUAL": 5,
                 "MAIORIGUAL": 5,
                 "IGUAL": 5,
-                "FECHAPARENTESES": 8
+                "FECHAPARENTESES": 30
             },
             "CONDICAO": { "FECHAPARENTESES": 30 }
         }
@@ -80,7 +103,8 @@
                 "MENORIGUAL": 8,
                 "MAIORIGUAL": 8,
                 "IGUAL": 8,
-                "FECHAPARENTESES": 10
+                "FECHAPARENTESES": 8,
+                "": 8
             }
         }
     },
@@ -134,7 +158,12 @@
             "WHILE": "S 3",
             "IF": "S 2",
             "FOR": "S 44",
-            "FECHACHAVES": "R 0 LISTACOMANDOS"
+            "FECHACHAVES": "R 0 LISTACOMANDOS",
+            "DO": "S 58",
+            "PRINT": "S 65",
+            "FOREACH": "S 70",
+            "SWITCH": "S 78",
+            "ID": "S 46"
         },
         "GOTO": {
             "PROGRAMA": { "$": 1 },
@@ -142,7 +171,12 @@
             "FOR": { "": 57 },
             "WHILE": { "": 41 },
             "COMANDO": { "FECHACHAVES": 35, "": 42 },
-            "LISTACOMANDOS": { "": 33 }
+            "LISTACOMANDOS": { "": 33 },
+            "DO": { "": 64 },
+            "PRINT": { "": 69 },
+            "FOREACH": { "": 77 },
+            "SWITCH": { "": 95 },
+            "ATRIBUICAO": { "": 96 }
         }
     },
     "33": { "ACTION": { "FECHACHAVES": "S 34" }, "GOTO": {} },
@@ -155,12 +189,27 @@
     "40": { "ACTION": { "": "R 2 WHILE" }, "GOTO": {} },
     "41": { "ACTION": { "": "R 1 COMANDO" }, "GOTO": {} },
     "42": {
-        "ACTION": { "IF": "S 2", "WHILE": "S 3" },
+        "ACTION": {
+            "WHILE": "S 3",
+            "IF": "S 2",
+            "FOR": "S 44",
+            "DO": "S 58",
+            "PRINT": "S 65",
+            "FOREACH": "S 70",
+            "SWITCH": "S 78",
+            "ID": "S 46"
+        },
         "GOTO": {
             "IF": { "": 36 },
-            "COMANDO": { "": 42 },
+            "COMANDO": { "FECHACHAVES": 35, "$": "35", "": "42" },
             "LISTACOMANDOS": { "": 43 },
-            "WHILE": { "": 41 }
+            "WHILE": { "": 41 },
+            "DO": { "": 64 },
+            "PRINT": { "": 69 },
+            "FOREACH": { "": 77 },
+            "SWITCH": { "": 95 },
+            "FOR": { "": 57 },
+            "ATRIBUICAO": { "": 96 }
         }
     },
     "43": { "ACTION": { "": "R 2 LISTACOMANDOS" }, "GOTO": {} },
@@ -184,11 +233,12 @@
                 "MENORIGUAL": 5,
                 "MAIORIGUAL": 5,
                 "IGUAL": 5,
-                "PONTOVIRGULA": 48
+                "PONTOVIRGULA": 48,
+                "": 48
             }
         }
     },
-    "48": { "ACTION": { "PONTOVIRGULA": "R 3 ATRIBUICAO" }, "GOTO": {} },
+    "48": { "ACTION": { "": "R 3 ATRIBUICAO" }, "GOTO": {} },
     "49": { "ACTION": { "PONTOVIRGULA": "S 50" }, "GOTO": {} },
     "50": {
         "ACTION": { "CONST": "S 11", "ID": "S 12" },
@@ -207,7 +257,7 @@
                 "MENORIGUAL": 5,
                 "MAIORIGUAL": 5,
                 "IGUAL": 5,
-                "PONTOVIRGULA": 8
+                "FECHAPARENTESES": 51
             },
             "CONDICAO": { "PONTOVIRGULA": 51 }
         }
@@ -231,6 +281,199 @@
         "GOTO": {}
     },
     "57": {
+        "ACTION": { "": "R 1 COMANDO" },
+        "GOTO": {}
+    },
+    "58": {
+        "ACTION": { "": "S 32" },
+        "GOTO": { "BLOCO": { "": 59 } }
+    },
+    "59": {
+        "ACTION": { "WHILE": "S 60" },
+        "GOTO": {}
+    },
+    "60": {
+        "ACTION": { "ABREPARENTESES": "S 61" },
+        "GOTO": {}
+    },
+    "61": {
+        "ACTION": { "CONST": "S 11", "ID": "S 12" },
+        "GOTO": {
+            "EXP2": { "": 13 },
+            "EXP": {
+                "SOMA": 6,
+                "SUBTRACAO": 6,
+                "MULTIPLICACAO": 6,
+                "DIVISAO": 6,
+                "MODULO": 6,
+                "ELEVADO": 6,
+                "MENOR": 5,
+                "MAIOR": 5,
+                "DIFERENTE": 5,
+                "MENORIGUAL": 5,
+                "MAIORIGUAL": 5,
+                "IGUAL": 5,
+                "FECHAPARENTESES": 62
+            },
+            "CONDICAO": {
+                "": 62
+            }
+        }
+    },
+    "62": {
+        "ACTION": { "FECHAPARENTESES": "S 63" },
+        "GOTO": {}
+    },
+    "63": {
+        "ACTION": { "": "R 6 DO" },
+        "GOTO": {}
+    },
+    "64": {
+        "ACTION": { "": "R 1 COMANDO" },
+        "GOTO": {}
+    },
+    "65": {
+        "ACTION": { "ABREPARENTESES": "S 66" },
+        "GOTO": {}
+    },
+    "66": {
+        "ACTION": {
+            "CONST": "S 11",
+            "ID": "S 12",
+            "FECHAPARENTESES": "R 0 EXP"
+        },
+        "GOTO": {
+            "EXP2": { "": 13 },
+            "EXP": {
+                "SOMA": 6,
+                "SUBTRACAO": 6,
+                "MULTIPLICACAO": 6,
+                "DIVISAO": 6,
+                "MODULO": 6,
+                "ELEVADO": 6,
+                "FECHAPARENTESES": 67
+            }
+        }
+    },
+    "67": {
+        "ACTION": { "FECHAPARENTESES": "S 68" },
+        "GOTO": {}
+    },
+    "68": {
+        "ACTION": { "": "R 4 PRINT" },
+        "GOTO": {}
+    },
+    "69": {
+        "ACTION": { "": "R 1 COMANDO" },
+        "GOTO": {}
+    },
+    "70": {
+        "ACTION": { "ABREPARENTESES": "S 71" },
+        "GOTO": {}
+    },
+    "71": {
+        "ACTION": { "ID": "S 72" },
+        "GOTO": {}
+    },
+    "72": {
+        "ACTION": { "DOISPONTOS": "S 73" },
+        "GOTO": {}
+    },
+    "73": {
+        "ACTION": { "ID": "S 74" },
+        "GOTO": {}
+    },
+    "74": {
+        "ACTION": { "FECHAPARENTESES": "S 75" },
+        "GOTO": {}
+    },
+    "75": {
+        "ACTION": { "ABRECHAVES": "S 32" },
+        "GOTO": { "BLOCO": { "": 76 } }
+    },
+    "76": {
+        "ACTION": { "": "R 7 FOREACH" },
+        "GOTO": {}
+    },
+    "77": {
+        "ACTION": { "": "R 1 COMANDO" },
+        "GOTO": {}
+    },
+    "78": {
+        "ACTION": { "ABREPARENTESES": "S 79" },
+        "GOTO": {}
+    },
+    "79": {
+        "ACTION": { "ID": "S 80" },
+        "GOTO": {}
+    },
+    "80": {
+        "ACTION": { "FECHAPARENTESES": "S 81" },
+        "GOTO": {}
+    },
+    "81": {
+        "ACTION": { "ABRECHAVES": "S 82" },
+        "GOTO": {}
+    },
+    "82": {
+        "ACTION": { "CASE": "S 87" },
+        "GOTO": { "CASE": { "CASE": 86, "DEFAULT": 83 } }
+    },
+    "83": {
+        "ACTION": { "DEFAULT": "S 92" },
+        "GOTO": { "DEFAULT": { "FECHACHAVES": 84 } }
+    },
+    "84": {
+        "ACTION": { "FECHACHAVES": "S 85" },
+        "GOTO": {}
+    },
+    "85": {
+        "ACTION": { "": "R 8 SWITCH" },
+        "GOTO": {}
+    },
+    "86": {
+        "ACTION": { "CASE": "S 87" },
+        "GOTO": { "CASE": { "DEFAULT": 91, "CASE": 91 } }
+    },
+    "87": {
+        "ACTION": { "ID": "S 88" },
+        "GOTO": {}
+    },
+    "88": {
+        "ACTION": { "DOISPONTOS": "S 89" },
+        "GOTO": {}
+    },
+    "89": {
+        "ACTION": {
+            "ABRECHAVES": "S 32"
+        },
+        "GOTO": { "BLOCO": { "": 90 } }
+    },
+    "90": {
+        "ACTION": { "": "R 4 CASE" },
+        "GOTO": {}
+    },
+    "91": {
+        "ACTION": { "": "R 2 CASE" },
+        "GOTO": {}
+    },
+    "92": {
+        "ACTION": { "DOISPONTOS": "S 93" },
+        "GOTO": {}
+    },
+    "93": {
+        "ACTION": { "ABRECHAVES": "S 32" },
+        "GOTO": { "BLOCO": { "": 94 } }
+    },
+    "94": {
+        "ACTION": { "": "R 3 DEFAULT" },
+        "GOTO": {}
+    },
+    "95": {
+        "ACTION": { "": "R 1 COMANDO" },
+        "GOTO": {}
+    },
+    "96": {
         "ACTION": { "": "R 1 COMANDO" },
         "GOTO": {}
     }

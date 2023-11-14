@@ -3,9 +3,10 @@
         { "/[f]/": "FOR" },
         { "/[s]/": "SWITCH" },
         { "/[w]/": "WHILE" },
-        { "/[d]/": "DO" },
+        { "/[d]/": "DODEFAULT" },
         { "/[p]/": "PRINT" },
         { "/[i]/": "IF" },
+        { "/[c]/": "CASE" },
         { "/[a-z]/": "IDFINAL" },
         { "/\\d/": "CONSTFINAL" },
         { "/\\s/": "INICIO" },
@@ -24,7 +25,9 @@
         { "/[<]/": "MENORFINAL" },
         { "/[>]/": "MAIORFINAL" },
         { "/[\\^]/": "ELEVADOFINAL" },
-        { "/[!]/": "DIFERENTE" }
+        { "/[!]/": "DIFERENTE" },
+        { "/[;]/": "PONTOVIRGULAFINAL" },
+        { "/[:]/": "DOISPONTOSFINAL" }
     ],
     "FOR": [{ "/[o]/": "FOR2" }, { "/\\w/": "IDFINAL" }],
     "FOR2": [{ "/[r]/": "FORFINAL" }, { "/\\w/": "IDFINAL" }],
@@ -44,7 +47,11 @@
     "WHILE3": [{ "/[l]/": "WHILE4" }, { "/\\w/": "IDFINAL" }],
     "WHILE4": [{ "/[e]/": "WHILEFINAL" }, { "/\\w/": "IDFINAL" }],
     "WHILEFINAL": [{ "/\\w/": "IDFINAL" }],
-    "DO": [{ "/[o]/": "DOFINAL" }, { "/\\w/": "IDFINAL" }],
+    "DODEFAULT": [
+        { "/[o]/": "DOFINAL" },
+        { "/[e]/": "DEFAULT2" },
+        { "/\\w/": "IDFINAL" }
+    ],
     "DOFINAL": [{ "/\\w/": "IDFINAL" }],
     "PRINT": [{ "/[r]/": "PRINT2" }, { "/\\w/": "IDFINAL" }],
     "PRINT2": [{ "/[i]/": "PRINT3" }, { "/\\w/": "IDFINAL" }],
@@ -55,6 +62,16 @@
     "IFFINAL": [{ "/\\w/": "IDFINAL" }],
     "IDFINAL": [{ "/\\w/": "IDFINAL" }],
     "CONSTFINAL": [{ "/\\d/": "CONSTFINAL" }],
+    "CASE": [{ "/[a]/": "CASE2" }, { "/\\w/": "IDFINAL" }],
+    "CASE2": [{ "/[s]/": "CASE3" }, { "/\\w/": "IDFINAL" }],
+    "CASE3": [{ "/[e]/": "CASEFINAL" }, { "/\\w/": "IDFINAL" }],
+    "CASEFINAL": [{ "/\\w/": "IDFINAL" }],
+    "DEFAULT2": [{ "/[f]/": "DEFAULT3" }, { "/\\w/": "IDFINAL" }],
+    "DEFAULT3": [{ "/[a]/": "DEFAULT4" }, { "/\\w/": "IDFINAL" }],
+    "DEFAULT4": [{ "/[u]/": "DEFAULT5" }, { "/\\w/": "IDFINAL" }],
+    "DEFAULT5": [{ "/[l]/": "DEFAULT6" }, { "/\\w/": "IDFINAL" }],
+    "DEFAULT6": [{ "/[t]/": "DEFAULTFINAL" }, { "/\\w/": "IDFINAL" }],
+    "DEFAULTFINAL": [{ "/\\w/": "IDFINAL" }],
 
     "ABREPARENTESESFINAL": [],
     "FECHAPARENTESESFINAL": [],
@@ -78,5 +95,7 @@
     "DIFERENTE": [{ "/[=]/": "DIFERENTEFINAL" }],
     "DIFERENTEFINAL": [],
     "ATRIBUIFINAL": [{ "/[=]/": "IGUALFINAL" }],
-    "IGUALFINAL": []
+    "IGUALFINAL": [],
+    "DOISPONTOSFINAL": [],
+    "PONTOVIRGULAFINAL": []
 }

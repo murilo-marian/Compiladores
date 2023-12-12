@@ -13,15 +13,18 @@
         <h1 style="margin-top: 5%">Analisador de Código</h1>
         <form class="mb-3" method="post">
             <label for="codeInput" class="form-label">Code</label>
-            <textarea name="code" type="text" class="form-control mb-2" id="codeInput"></textarea>
+            <textarea name="code" type="text" class="form-control mb-2" id="codeInput"><?php echo isset($_POST['code']) ? $_POST['code'] : ''; ?></textarea>
             <button class="btn btn-primary" type="submit">
                 Submit code
+            </button>
+            <button class="btn btn-primary" id="myButton">
+                Clear code
             </button>
         </form>
         <div class="">
             <?php
-            include ("analisador\AnaliseLexica.php");
-            include ("analisador\Sintatico.php");
+            include("analisador\AnaliseLexica.php");
+            include("analisador\Sintatico.php");
 
             $lexico = new Lexico();
             if (isset($_POST['code'])) {
@@ -36,6 +39,12 @@
             ?>
         </div>
     </div>
+    <script>
+        document.getElementById("myButton").onclick = function(e) {
+            e.preventDefault();
+            location.href = "view.php";
+        };
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 

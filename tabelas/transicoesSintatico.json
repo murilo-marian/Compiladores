@@ -52,7 +52,12 @@
         "GOTO": { "CONDICAOBLOCO": { "": 40 } }
     },
     "4": {
-        "ACTION": { "CONST": "S 11", "ID": "S 12" },
+        "ACTION": {
+            "CONST": "S 11",
+            "ID": "S 12",
+            "TRUE": "S 105",
+            "FALSE": "S 105"
+        },
         "GOTO": {
             "EXP2": { "": 13 },
             "EXP": {
@@ -233,7 +238,10 @@
     },
     "43": { "ACTION": { "": "R 2 LISTACOMANDOS" }, "GOTO": {} },
     "44": { "ACTION": { "ABREPARENTESES": "S 45" }, "GOTO": {} },
-    "45": { "ACTION": { "ID": "S 46" }, "GOTO": { "ATRIBUICAO": { "": 49 } } },
+    "45": {
+        "ACTION": { "INT": "S 108" },
+        "GOTO": { "DECLARACAO": { "": 49 } }
+    },
     "46": { "ACTION": { "ATRIBUI": "S 47" }, "GOTO": {} },
     "47": {
         "ACTION": { "CONST": "S 11", "ID": "S 12" },
@@ -316,7 +324,12 @@
         "GOTO": {}
     },
     "61": {
-        "ACTION": { "CONST": "S 11", "ID": "S 12" },
+        "ACTION": {
+            "CONST": "S 11",
+            "ID": "S 12",
+            "TRUE": "S 105",
+            "FALSE": "S 105"
+        },
         "GOTO": {
             "EXP2": { "": 13 },
             "EXP": {
@@ -569,5 +582,42 @@
     "107": {
         "ACTION": { "": "R 1 TIPO" },
         "GOTO": {}
+    },
+    "108": {
+        "ACTION": { "ID": "S 109" },
+        "GOTO": {}
+    },
+    "109": {
+        "ACTION": { "ATRIBUI": "S 110" },
+        "GOTO": {}
+    },
+    "110": {
+        "ACTION": {
+            "CONST": "S 11",
+            "ID": "S 12"
+        },
+        "GOTO": {
+            "EXP2": { "": 13 },
+            "EXP": {
+                "SOMA": 6,
+                "SUBTRACAO": 6,
+                "MULTIPLICACAO": 6,
+                "DIVISAO": 6,
+                "MODULO": 6,
+                "ELEVADO": 6,
+                "MENOR": 5,
+                "MAIOR": 5,
+                "DIFERENTE": 5,
+                "MENORIGUAL": 5,
+                "MAIORIGUAL": 5,
+                "IGUAL": 5,
+                "PONTOVIRGULA": 111
+            }
+        }
+    },
+    "111": {
+        "ACTION": {
+            "": "R 4 DECLARACAO"
+        }
     }
 }

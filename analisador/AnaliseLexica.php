@@ -32,13 +32,14 @@ class Lexico {
             while (!$match) {
                 if ($estado == "INICIO") {
                     $posInicial = $posicao;
+                    $tokens = "";
                 }
 
                 foreach ($this->transicoes[$estado] as $padrao) {
                     if (preg_match(key($padrao), $lexema)) {
                         $tokens .= $lexema;
                         $estado = $padrao[key($padrao)];
-                        echo "MUDANCA DE ESTADO: " . $estado . "<br />";
+                        /* echo "MUDANCA DE ESTADO: " . $estado . "<br />"; */
                         $match = true;
                         break;
                     }
@@ -58,10 +59,10 @@ class Lexico {
                     $match == false;
                     $posFinal = $posicao - 1;
                     $arrayTokens[] = $this->matchFinal($tokens, $estado, $linha, $posInicial, $posFinal);
-                    $tokens = "";
+                    $tokens = null;
                     /* echo 'mudado pra inicio <br />'; */
                     $estado = "INICIO";
-                    
+
                     //QUANDO DER PAU AQUI E O ESTADO ATUAL TIVER "FINAL" NO NOME, ADICIONAR PROS TOKENS
                 }
                 if ($lexema == '$') {

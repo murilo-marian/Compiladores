@@ -53,16 +53,20 @@ class SLR {
                 case 'S': // Shift - Empilha e avança o ponteiro
                     array_push($pilha, $acao[1]);
                     $i++;
-                    if ($tokens[$i - 1] == "ID" && isset($tipo)) {
+                    if ($tokens[$i - 1] == "INT") {
+                        $tipo = "int";
+                    } else if ($tokens[$i - 1] == "ID" && isset($tipo)) {
                         foreach ($tabelaSimbolos as $tabela) {
                             if ($tabela->exists($entrada[$i - 1]->getLexema())) {
-                                echo 'ERROR - VARIABLE ALREADY DECLARED';
-                                exit();
+                                echo 'ERRO - VARIÁVEL JÁ DECLARADA';
+                                $this->printError($entrada[$i - 1]);
+                                return;
                             }
                         }
                         end($tabelaSimbolos)->insert($entrada[$i - 1]->getLexema(), $tipo);
-                        echo 'added to table';
-                    } else if ($tokens[$i -1] == "ID") {
+                        echo 'VARIÁVEL ADICIONADA A TABELA DE SÍMBOLOS - ' . $entrada[$i - 1]->getLexema() . ' - DE TIPO - ' . $tipo;
+                        echo '<br/>';
+                    } else if ($tokens[$i - 1] == "ID") {
                         $exists = false;
                         foreach ($tabelaSimbolos as $tabela) {
                             if ($tabela->exists($entrada[$i - 1]->getLexema())) {
@@ -71,28 +75,37 @@ class SLR {
                             }
                         }
                         if (!$exists) {
-                            echo 'ERROR - VARIABLE NOT DECLARED';
-                            exit();
+                            echo 'ERRO - VARIÁVEL NÃO DECLARADA';
+                            $this->printError($entrada[$i - 1]);
+                            return;
                         }
+                    } else {
+                        $tipo = null;
                     }
 
                     if ($tokens[$i - 1] == "ABRECHAVES") {
                         $tabelaSimbolos[] = new TabelaSimbolos;
+                        echo '<br/>';
+                        echo 'NOVO ESCOPO';
+                        echo '<br/>';
                     } else if ($tokens[$i - 1] == "FECHACHAVES") {
                         array_pop($tabelaSimbolos);
+                        echo '<br/>';
+                        echo 'POP ESCOPO';
+                        echo '<br/>';
                     }
 
-                    $tipo = null;
                     break;
                 case 'R': // Reduce - Desempilha e Desvia (para indicar a redução)
                     if ($acao[2] == "TIPO") {
                         $tipo = $entrada[$i - 1]->getLexema();
-                        echo 'tipo detected';
                     } else if ($tokens[$i] == "ID" && isset($tipo)) {
                         end($tabelaSimbolos)->insert($entrada[$i]->getLexema(), $tipo);
-                        echo 'added to table';
+                        echo '<br/>';
+                        echo 'VARIÁVEL ADICIONADA A TABELA DE SÍMBOLOS - ' . $entrada[$i - 1]->getLexema() . ' - DE TIPO - ' . $tipo;
+                        echo '<br/>';
                         $tipo = null;
-                    }else {
+                    } else {
                         $tipo = null;
                     }
 
@@ -101,7 +114,7 @@ class SLR {
                     }
                     echo '<br/>';
                     echo '<br/>';
-                    echo ' | Reduziu para ' . $acao[2];
+                    echo ' | REDUZIDO PARA ' . $acao[2];
                     echo '<br/>';
 
                     if (array_key_exists($tokens[$i], $this->afd[end($pilha)]['GOTO'][$acao[2]])) {
@@ -112,16 +125,24 @@ class SLR {
                     array_push($pilha, $desvio);
                     break;
                 case 'ACC': // Accept
-                    echo 'Ok';
-                    print_r($tabelaSimbolos);
+                    echo 'CADEIA ACEITA';
                     return true;
                 default:
-                    echo 'Erro';
+                    echo 'ERRO ENCONTRADO';
+                    $this->printError($entrada[$i - 1]);
                     return false;
             }
             echo "\nPilha:" . implode(' ', $pilha);
             echo '<br/>';
             echo '<br/>';
         }
+    }
+
+    public function printError($entrada) {
+        echo "<br />";
+        echo "ERRO <br />";
+        echo "LEXEMA: " . $entrada->getLexema() . "<br />";
+        echo "LINHA: " . $entrada->getLinha() . "<br />";
+        echo "POSICAO: " . $entrada->getPosicaoInicial() . "<br />";
     }
 }
